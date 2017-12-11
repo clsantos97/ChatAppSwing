@@ -1,0 +1,3 @@
+- Agregar panel de clientes conectados.
+- Agregar color a cada nombre de cliente.
+- Agregar validación client existe.
