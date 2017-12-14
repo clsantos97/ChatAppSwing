@@ -8,6 +8,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
 
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -25,13 +27,17 @@ public class Server extends Thread {
 
     private JTextArea textArea;
     private JTextField text;
+    private JList usersList;
+    private DefaultListModel usersListModel;
 
     private ServerThread serverThread;
     static ArrayList<ObjectOutputStream> clientList = new ArrayList<>();
 
-    public Server(JTextArea textArea, JTextField text) {
+    public Server(JTextArea textArea, JTextField text, DefaultListModel usersListModel, JList usersList) {
         this.textArea = textArea;
         this.text = text;
+        this.usersListModel=usersListModel;
+        this.usersList=usersList;
     }
 
     public void run() {
@@ -48,6 +54,7 @@ public class Server extends Thread {
                 client = server.accept();
                 output = new ObjectOutputStream(client.getOutputStream());
                 input = new ObjectInputStream(client.getInputStream());
+                
                 
                 System.out.println();
                 System.out.println(output.toString());

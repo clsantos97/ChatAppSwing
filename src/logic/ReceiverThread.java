@@ -9,24 +9,24 @@ import javax.swing.JTextField;
 
 public class ReceiverThread extends Thread {
 
-	private ObjectInputStream entrada;
-	private JTextField texto;
+	private ObjectInputStream input;
+	private JTextField text;
 	private JTextArea textArea;
-	private JButton btnEnviar;
+	private JButton btnSend;
 	
-	public ReceiverThread(ObjectInputStream entrada, JTextField texto, JTextArea textArea, JButton jButton) {
-		this.entrada = entrada;
-		this.texto = texto;
+	public ReceiverThread(ObjectInputStream input, JTextField text, JTextArea textArea, JButton btnSend) {
+		this.input = input;
+		this.text = text;
 		this.textArea = textArea;
-		this.btnEnviar=jButton;
+		this.btnSend=btnSend;
 	}
 	
 	public void run(){
 		String mensaje = null;
 		while(true){
 			try {
-				mensaje = entrada.readObject().toString();
-				if(mensaje .equals("*")){  //Cuando cerremos el servidor le mandaremos al cliente un * y este al recibirlo como mensaje se cierra  
+				mensaje = input.readObject().toString();
+				if(mensaje .equals("*")){ 
 					textArea.append("El servidor se ha detenido");
 					System.exit(0);
 					break;
@@ -36,13 +36,13 @@ public class ReceiverThread extends Thread {
 				}
 				
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// TODO exception
 				//e.printStackTrace();
 			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
+				// TODO exception
 				//e.printStackTrace();
 			}
-			btnEnviar.setEnabled(true);
+			btnSend.setEnabled(true);
 		}
 	}
 	
